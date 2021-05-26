@@ -215,6 +215,16 @@ $model = $service->get('test@test.com', '12345', 'user_register', true, true);
 // 5 parameter - (optional) disabled attempts for code (true - disable, false - enable (default))
 ```
 
+or
+
+```
+$model = $service->getByCode('12345', 'user_register');
+$model = $service->getByCode('12345', 'user_register', false);
+// 1 parameter - code
+// 2 parameter - type code (context) (user activation, password recovery, confirm order or other)
+// 3 parameter - (optional) use exception (true - use (default), false - not use)
+```
+
 #### Delete activation code
 
 Use if you need to activate the code or just delete it

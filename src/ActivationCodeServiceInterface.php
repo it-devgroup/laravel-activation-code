@@ -118,6 +118,19 @@ interface ActivationCodeServiceInterface
     ): ?ActivationCode;
 
     /**
+     * @param string $code
+     * @param string $type
+     * @param bool $exception
+     * @return ActivationCode|null
+     * @throws ActivationCodeServiceException
+     */
+    public function getByCode(
+        string $code,
+        string $type,
+        bool $exception = true
+    ): ?ActivationCode;
+
+    /**
      * @param ActivationCode $activationCode
      */
     public function delete(ActivationCode $activationCode): void;

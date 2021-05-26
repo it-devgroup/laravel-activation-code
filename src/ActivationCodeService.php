@@ -152,6 +152,31 @@ class ActivationCodeService implements ActivationCodeServiceInterface
     }
 
     /**
+     * @param string $code
+     * @param string $type
+     * @param bool $exception
+     * @return ActivationCode|null
+     * @throws ActivationCodeServiceException
+     */
+    public function getByCode(
+        string $code,
+        string $type,
+        bool $exception = true
+    ): ?ActivationCode {
+        $activationCodes = $this->getModelByCode($code, $type);
+
+        if (!$activationCodes->count()) {
+            if ($exception) {
+                throw ActivationCodeServiceException::notFound();
+            } else {
+                return null;
+            }
+        }
+
+        return $activationCodes->first();
+    }
+
+    /**
      * @param ActivationCode $activationCode
      * @throws ActivationCodeServiceException
      */
@@ -281,6 +306,21 @@ class ActivationCodeService implements ActivationCodeServiceInterface
         if ($recordId) {
             $query->where('record_id', '=', $recordId);
         }
+        $query->where('expires_at', '>', Carbon::now()->toDateTimeString());
+
+        return $query->get();
+    }
+
+    /**
+     * @param string $code
+     * @param string $type
+     * @return ActivationCode[]|EloquentCollection
+     */
+    private function getModelByCode(string $code, string $type): EloquentCollection
+    {
+        $query = $this->model::query();
+        $query->where('code', '=', $code);
+        $query->where('type', '=', $type);
         $query->where('expires_at', '>', Carbon::now()->toDateTimeString());
 
         return $query->get();
