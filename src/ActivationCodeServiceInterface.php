@@ -60,33 +60,33 @@ interface ActivationCodeServiceInterface
 
     /**
      * @param int|null $generateCodeMode
-     * @return self
+     * @return ActivationCodeServiceInterface
      */
-    public function setGenerateCodeMode(?int $generateCodeMode = null): self;
+    public function setGenerateCodeMode(?int $generateCodeMode = null): ActivationCodeServiceInterface;
 
     /**
      * @param string|null $mode
-     * @return self
+     * @return ActivationCodeServiceInterface
      */
-    public function setMode(?string $mode = null): self;
+    public function setMode(?string $mode = null): ActivationCodeServiceInterface;
 
     /**
      * @param int|null $codeLength
-     * @return self
+     * @return ActivationCodeServiceInterface
      */
-    public function setCodeLength(?int $codeLength): self;
+    public function setCodeLength(?int $codeLength): ActivationCodeServiceInterface;
 
     /**
      * @param int|null $maxAttempt
-     * @return self
+     * @return ActivationCodeServiceInterface
      */
-    public function setMaxAttempt(?int $maxAttempt): self;
+    public function setMaxAttempt(?int $maxAttempt): ActivationCodeServiceInterface;
 
     /**
      * @param string|null $codeTTL
-     * @return self
+     * @return ActivationCodeServiceInterface
      */
-    public function setCodeTTL(?string $codeTTL): self;
+    public function setCodeTTL(?string $codeTTL): ActivationCodeServiceInterface;
 
     /**
      * @param string|null $receiver
