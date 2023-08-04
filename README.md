@@ -1,38 +1,7 @@
 ## 
-## Install for Lumen
-
-**1.** Open file `bootstrap/app.php` and add new service provider
-```
-$app->register(\ItDevgroup\LaravelActivationCode\Providers\ActivationCodeServiceProvider::class);
-```
-Uncommented strings
-```
-$app->withFacades();
-$app->withEloquent();
-```
-Added after **$app->configure('app');**
-```
-$app->configure('activation_code');
-```
-
-**2.** Run commands
-
-For creating config file
-```
-php artisan activation:code:publish --tag=config
-```
-For creating migration file
-```
-php artisan activation:code:publish --tag=migration
-```
-For generate table
-```
-php artisan migrate
-```
-
 ## Install for laravel
 
-**1.** Open file **config/app.php** and search
+**1.** Open file **config/app.php** and search (optional, using laravel discovered package system by default)
 ```
     'providers' => [
         ...
@@ -128,20 +97,6 @@ namespace App;
 
 class CustomFile extends \ItDevgroup\LaravelActivationCode\Model\ActivationCode
 {
-}
-```
-
-If need change table name or need added other code:
-
-```
-<?php
-
-namespace App;
-
-class CustomFile extends \ItDevgroup\LaravelActivationCode\Model\ActivationCode
-{
-    protected $table = 'YOUR_TABLE_NAME';
-    
     // other code
 }
 ```

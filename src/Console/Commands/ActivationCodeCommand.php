@@ -82,7 +82,17 @@ class ActivationCodeCommand extends Command
      */
     private function copyMigration(): void
     {
-        $this->copyFiles($this->files['migration']['from'], $this->files['migration']['to']);
+        $filename = sprintf(
+            '%s_create_%s.php',
+            now()->format('Y_m_d_His'),
+            Config::get('activation_code.table')
+        );
+
+        $this->copyFile(
+            $this->files['migration']['from'] . DIRECTORY_SEPARATOR . 'create_activation_codes.stub',
+            $this->files['migration']['to'] . DIRECTORY_SEPARATOR . $filename,
+            Config::get('activation_code.table')
+        );
     }
 
     /**
@@ -134,5 +144,38 @@ class ActivationCodeCommand extends Command
                 )
             );
         }
+    }
+
+    /**
+     * @param string $from
+     * @param string $to
+     * @param string|null $table
+     */
+    private function copyFile(string $from, string $to, ?string $table = null): void
+    {
+        copy(
+            $from,
+            $to
+        );
+
+        $content = file_get_contents($to);
+        $content = strtr($content, [
+            '{{TABLE_NAME}}' => $table,
+        ]);
+        file_put_contents($to, $content);
+
+        $path = strtr(
+            $to,
+            [
+                base_path() => ''
+            ]
+        );
+
+        $this->info(
+            sprintf(
+                'File "%s" copied',
+                $path
+            )
+        );
     }
 }

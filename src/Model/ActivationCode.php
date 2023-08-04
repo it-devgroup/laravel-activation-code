@@ -4,10 +4,11 @@ namespace ItDevgroup\LaravelActivationCode\Model;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class ActivationCode
- * @package App\Domain\ActivationCode
+ * @package ItDevgroup\LaravelActivationCode\Model
  * @property-read int $id
  * @property string $receiver
  * @property string $code
@@ -25,10 +26,6 @@ class ActivationCode extends Model
     public const UPDATED_AT = null;
 
     /**
-     * @var string
-     */
-    protected $table = 'activation_codes';
-    /**
      * @var array
      */
     protected $dates = [
@@ -42,4 +39,14 @@ class ActivationCode extends Model
         'record_id' => 'integer',
         'attempt' => 'integer',
     ];
+
+    /**
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        $this->table = Config::get('activation_code.table');
+
+        parent::__construct($attributes);
+    }
 }

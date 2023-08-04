@@ -4,11 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-/**
- * Class CreateActivationCodes
- */
-class CreateActivationCodes extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -40,4 +36,4 @@ class CreateActivationCodes extends Migration
     {
         Schema::dropIfExists('{{TABLE_NAME}}');
     }
-}
+};
